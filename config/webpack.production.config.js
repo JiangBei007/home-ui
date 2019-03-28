@@ -1,3 +1,4 @@
+'use strict'
 process.env.NODE_ENV = 'production';
 const path = require("path")
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 通过 npm 安装
@@ -12,7 +13,7 @@ const config = require("./config")
 
 module.exports = {
 	mode: "production",
-	entry:path.resolve(__dirname, './../src/main.js'),
+	entry:config.build.entry,
 	output:{
 		filename: config.build.filename,
 		path: config.build.path,
@@ -20,6 +21,9 @@ module.exports = {
 	},
 	module: {
 		rules: webpackBaseConf.rules,
+	},
+	resolve:{
+		alias:webpackBaseConf.alias,
 	},
 	plugins: [
 		new HtmlWebpackPlugin({

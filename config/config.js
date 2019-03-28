@@ -3,21 +3,23 @@
 const path = require('path')
 
 module.exports = {
-  dev: {
-	filename: '[name].[hash].bundle.js',
-	path: path.resolve(__dirname, './../dist'),
-	contentBase: path.join(__dirname, "./../dist"),
-	port: 9000,
-    proxyTable: {
-	  	'/api': {
-			target: '127.0.0.1:7001',
-			ws: true,
-			changeOrigin: true
-	  	},
-	},
+	dev: {
+		entry:path.resolve(__dirname, './../src/main.js'),
+		filename: '[name].[hash].bundle.js',
+		path: path.resolve(__dirname, './../dist'),
+		contentBase: path.join(__dirname, "./../dist"),
+		port: 9900,
+			proxyTable: {
+				'/api': {
+					target: '127.0.0.1:7001',
+					ws: true,
+					changeOrigin: true
+				},
+		},
     host: 'localhost', // can be overwritten by process.env.HOST
   },
   build: {
+		entry:path.resolve(__dirname, './../src/main.js'),
     filename: 'static/js/[name].[hash].bundle.js',
     path: path.resolve(__dirname, './../dist'),
     publicPath:"./"

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --inline --progress --config ./config/webpack.dev.config.js",
-		"start":"npm run dev",
+    "start": "npm run dev",
     "build": "webpack --inline --progress --config ./config/webpack.production.config.js"
   },
   "author": "",
@@ -30,6 +30,9 @@
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.5.0",
     "node-notifier": "^5.4.0",
+    "postcss": "^7.0.14",
+    "postcss-loader": "^3.0.0",
+    "postcss-pxtorem": "^4.0.1",
     "url-loader": "^1.1.2",
     "vue": "^2.5.21",
     "vue-loader": "^15.4.2",

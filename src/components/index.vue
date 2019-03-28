@@ -1,11 +1,14 @@
 <template>
 <div class="bor">
-	<img src="../assets/icon/sign_bg.db29b0fb.png" />
-	<div v-for="item in attr">{{item}}</div>
+	<pa-input></pa-input>
 </div>
 </template>
 <script>
+import { PaInput } from "root-directory"
 export default{
+	components:{
+		PaInput
+	},
 	data(){
 		return{
 			attr:[1,2,3,4,5]

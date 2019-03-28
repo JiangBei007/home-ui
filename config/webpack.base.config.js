@@ -1,8 +1,13 @@
+'use strict'
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const path = require("path")
 const loader = process.env.NODE_ENV === 'production'? MiniCssExtractPlugin.loader:'vue-style-loader';
 console.log(process.env.NODE_ENV)
 module.exports = {
+	alias: {
+	  "@": path.resolve(__dirname, '../src'),
+	  "root-directory": path.resolve(__dirname, '../hometown/index.js'),
+	},
 	rules: [
 		{
 			test: /\.vue$/,

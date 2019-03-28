@@ -1,3 +1,4 @@
+'use strict'
 process.env.NODE_ENV = "development"
 const path = require("path")
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 通过 npm 安装
@@ -5,16 +6,20 @@ const webpack = require('webpack'); // 用于访问内置插件
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpackBaseConf = require("./webpack.base.config")
 var FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const config = require("./config")
 module.exports = {
 	mode: process.env.NODE_ENV,
-	entry:path.resolve(__dirname, './../src/main.js'),
+	entry:config.dev.entry,
 	output:{
 		filename: config.dev.filename,
 		path:config.dev.path,
 	},
 	module: {
 		rules: webpackBaseConf.rules,
+	},
+	resolve:{
+		alias:webpackBaseConf.alias,
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
@@ -28,6 +33,13 @@ module.exports = {
 				messages: [`You application is running here http://localhost:${config.dev.port}`],
 			  },
 		}),
+		new CopyWebpackPlugin([
+		  {
+		    from: path.resolve(__dirname, './../static'),
+		    to: path.resolve(__dirname, './../dist/static'),
+		    ignore: ['.*']
+		  }
+		]),
 	],
 	devServer: {
 	  contentBase: config.dev.contentBase,

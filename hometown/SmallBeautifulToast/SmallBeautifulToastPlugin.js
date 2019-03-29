@@ -1,4 +1,4 @@
-import ToastComponent from './PaToast.vue'
+import ToastComponent from './index.vue'
 
 let $vm,watcher
 const plugin = {
@@ -10,7 +10,6 @@ const plugin = {
       })
       document.body.appendChild($vm.$el)
    }
-
 
     const toast = {
       show (options = {}) {
@@ -41,17 +40,17 @@ const plugin = {
     }
 
     // all Vux's plugins are included in this.$vux
-    if (!vue.$pa) {
-      vue.$pa = {
+    if (!vue.$beautiful) {
+      vue.$beautiful = {
         toast
       }
     } else {
-      vue.$pa.toast = toast
+      vue.$beautiful.toast = toast
     }
 
     vue.mixin({
       created: function () {
-        this.$pa = vue.$pa
+        this.$beautiful = vue.$beautiful
       }
     })
   }

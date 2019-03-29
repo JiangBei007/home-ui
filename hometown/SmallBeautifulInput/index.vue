@@ -1,9 +1,9 @@
 <template>
-<div class="pa-input">
-	<div class="pa-input-label">
+<div class="small-beautiful-input">
+	<div class="small-beautiful-input-label">
 		<label :for="textId">{{title}}</label>
 	</div>
-	<div class="pa-input-form">
+	<div class="small-beautiful-input-form">
 		<input :type="type" ref="input"
 			:id="textId"
 			:style="{'text-align':textAlign}"
@@ -14,8 +14,8 @@
 			@blur="valueBlur"
 			:maxlength="max"
 		/>
-		<i class="icon" @click="vulueClear" v-show="iconWarnClear"></i>
-		<i class="warn" v-show="verification"></i>
+		<i class="small-beautiful-input-icon" @click="vulueClear" v-show="iconWarnClear"></i>
+		<i class="small-beautiful-input-warn" v-show="verification"></i>
 	</div>
 </div>
 </template>
@@ -26,7 +26,7 @@ import { RandomCharacter ,getAge } from './../static/js/com.js'
 export default{
 	model: {
 	    prop: 'value',
-	    event: 'pa-input-change'
+	    event: 'change'
  	},
 	props:{
 		placeholder:[String, Number],
@@ -113,17 +113,18 @@ export default{
 					return
 				}
 			}
-			this.$emit('pa-input-change', val);
+			this.$emit('change', val);
 			this.verificationChange(val);
 			this.clearIcon(val);
 		},
 		vulueClear(){
-			this.$emit('pa-input-change', "");
-			this.$emit('pa-input-clear', "");
+			this.$emit('change', "");
+			this.$emit('clear', "");
 			this.thisValue = "";
 			this.verificationChange("");
 			this.clearIcon("")
 			this.$refs.input.focus()
+			console.log(111)
 		},
 		valueFocus(){
 			this.clearIcon(this.thisValue)
@@ -185,50 +186,48 @@ export default{
 </script>
 
 <style lang="less">
-.pa-input{
+.small-beautiful-input{
 	text-align: left;
 	display: flex;
-	padding-top: 29px;
-	padding-bottom: 29px;
-	font-size: 28px;
+	padding: 7px;
+	font-size: 14px;
 	background: #fff;
 	color:inherit;
+	border-top: .5px solid #e5e5e5;
+	border-bottom: .5px solid #e5e5e5;
 }
-.pa-input-label{
-	width: 150px;
-}
-.pa-input-label label{
+.small-beautiful-input-label label{
 	display: block;
-	line-height: 42px;
-	min-height: 42px;
+	width: auto;
+	line-height: 24px;
+	min-height: 24px;
 }
-.pa-input-form{
+.small-beautiful-input-form{
 	flex: 1;
 	display: flex;
 	align-items: center;
-	input{
-		display: block;
-		flex:1;
-		height: 28px;
-		padding: 7px 0;
-		line-height:28px;
-		font-size: inherit;
-		color:inherit;
-	}
-	.icon{
-		height: 28px;
-		width: 28px;
-		border-radius: 50%;
-		background:#fbfbfb url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAByUlEQVRIS61W0VHDMBTTmwC6AUxAmYC6C9ARygSwAe0GdAIYoV0gbjcoE9ANgAkeJ58TEvs5CUd9ly87kq2nJ1swMLz3lwDuAVwlS08Ads65rz4IKU1672cAHgEsBvawBbB2zh2tdRlB3PEzgKeh0yXzL5Goc6IOQQT3AKZ/BK+X8xSuLVtDcAZwk6RNwCNS83OMjXMuSBwIYkEpTWeo6jvdIyIXFquqfgM4iciNMU+p9jUBnUArNoPg8/l86r2fquo+JSG4iMzonqqqjgYJLbyQqP2nsQO64ZoFS0na4PH/DwDsl3RMSLAE8FoQvnFFTRJ0jTsfYYwHEqwA0Pel0SHhIsoyApxL1yQY456Ov0eCk2AziqCteXSdWXhDgkDQK5FRUEqUFb6gb5CoWGQDvO6VEAclC7fIQpFpr8ymBfA6ozJ3FZpxEhqtqio20l1yzKNz7ranoA1Jb6P1RQUAgvCisZqIv7IZefFY6fsbFZEki4ue3hiaCjERmrJeSSli5ljBNQTYybDY6eHiyS6c/5AwINvgGUGUinq/pek64gg7AMv0EdB76avqynBXh0tVDyKyYvZbmygStGsTXxZ0U/10oXP4bYeeLT9rPCQQBU3zLgAAAABJRU5ErkJggg==) no-repeat center;
-		background-size:100% ;
-		margin: 0 5px;
-	}
-	.warn{
-		height: 28px;
-		width: 28px;
-		background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAB2ElEQVRYR+3Wv6vPURzH8ce7yEDyowwG3bqlpJTBqkQGg+hOTJYrkjLIcElK168/gIVBhqsU12ASi8VgI1IisqAsQkl9dHw/pK/v53vO58Ptu9yzntd5v5/n/T7v93mHEa8YsX/zAJ0iULEB67AG3/EWT4JnbVNaDFCxBIexD2sbHD3GVVwMvpbAFAFUPcensKLEKN7jSDCT0w8FqFiKG9ieM9SwfzI4PexsI0DlZ4XcxdaOzn8dmw5ONNkYBjCF6YzzY1hYoJsMLg+yNRCg6uX6DRZnABZhGd5ldB9TxQSf+3VNAOeRbpdbC+qHmR5dbk0FZ0sBXmEsZxFtAB4Fm7IAVa/Gnxc4T5I2AEm/Kvjwp+2/UlCxE7fnCGBz8CAHcDB1sjkC2BNcHyXA3v7uOCgFu3CrMAIbsRp3CvXbgnu5CLR5hIV+f8vGg5dDAdJmxQuMZ6x/wo7643mI5Rn902B9tgxrgJJGNBvsrvX3sSUDcDw4UwqwEq8zrfgb9uMLriG15abVrhXXt0qtOEXif6xD0VDauXngEg78I8HNYKLJRg4g7V/A0Y4Qs0i13zielY5kkzjXciRLv9+VHHgRQP0mRjeU9t9iJGN5LpRd94tT0NVB7tw8wA+iIWchMraXPwAAAABJRU5ErkJggg==) no-repeat center;
-		background-size: 130%;
-	}
 }
-
+.small-beautiful-input-form input{
+	display: block;
+	flex:1;
+	height: 24px;
+	font-size: inherit;
+	color:inherit;
+}
+.small-beautiful-input-icon{
+	display: block;
+	height: 16px;
+	width: 16px;
+	border-radius: 50%;
+	background:#fbfbfb url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAByUlEQVRIS61W0VHDMBTTmwC6AUxAmYC6C9ARygSwAe0GdAIYoV0gbjcoE9ANgAkeJ58TEvs5CUd9ly87kq2nJ1swMLz3lwDuAVwlS08Ads65rz4IKU1672cAHgEsBvawBbB2zh2tdRlB3PEzgKeh0yXzL5Goc6IOQQT3AKZ/BK+X8xSuLVtDcAZwk6RNwCNS83OMjXMuSBwIYkEpTWeo6jvdIyIXFquqfgM4iciNMU+p9jUBnUArNoPg8/l86r2fquo+JSG4iMzonqqqjgYJLbyQqP2nsQO64ZoFS0na4PH/DwDsl3RMSLAE8FoQvnFFTRJ0jTsfYYwHEqwA0Pel0SHhIsoyApxL1yQY456Ov0eCk2AziqCteXSdWXhDgkDQK5FRUEqUFb6gb5CoWGQDvO6VEAclC7fIQpFpr8ymBfA6ozJ3FZpxEhqtqio20l1yzKNz7ranoA1Jb6P1RQUAgvCisZqIv7IZefFY6fsbFZEki4ue3hiaCjERmrJeSSli5ljBNQTYybDY6eHiyS6c/5AwINvgGUGUinq/pek64gg7AMv0EdB76avqynBXh0tVDyKyYvZbmygStGsTXxZ0U/10oXP4bYeeLT9rPCQQBU3zLgAAAABJRU5ErkJggg==) no-repeat center;
+	background-size:100% ;
+	margin: 0 5px;
+}
+.small-beautiful-input-warn{
+	display: block;
+	height: 16px;
+	width: 16px;
+	background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAB2ElEQVRYR+3Wv6vPURzH8ce7yEDyowwG3bqlpJTBqkQGg+hOTJYrkjLIcElK168/gIVBhqsU12ASi8VgI1IisqAsQkl9dHw/pK/v53vO58Ptu9yzntd5v5/n/T7v93mHEa8YsX/zAJ0iULEB67AG3/EWT4JnbVNaDFCxBIexD2sbHD3GVVwMvpbAFAFUPcensKLEKN7jSDCT0w8FqFiKG9ieM9SwfzI4PexsI0DlZ4XcxdaOzn8dmw5ONNkYBjCF6YzzY1hYoJsMLg+yNRCg6uX6DRZnABZhGd5ldB9TxQSf+3VNAOeRbpdbC+qHmR5dbk0FZ0sBXmEsZxFtAB4Fm7IAVa/Gnxc4T5I2AEm/Kvjwp+2/UlCxE7fnCGBz8CAHcDB1sjkC2BNcHyXA3v7uOCgFu3CrMAIbsRp3CvXbgnu5CLR5hIV+f8vGg5dDAdJmxQuMZ6x/wo7643mI5Rn902B9tgxrgJJGNBvsrvX3sSUDcDw4UwqwEq8zrfgb9uMLriG15abVrhXXt0qtOEXif6xD0VDauXngEg78I8HNYKLJRg4g7V/A0Y4Qs0i13zielY5kkzjXciRLv9+VHHgRQP0mRjeU9t9iJGN5LpRd94tT0NVB7tw8wA+iIWchMraXPwAAAABJRU5ErkJggg==) no-repeat center;
+	background-size: 130%;
+}
 </style>

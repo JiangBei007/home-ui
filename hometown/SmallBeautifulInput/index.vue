@@ -4,9 +4,9 @@
 		<label :for="textId">{{title}}</label>
 	</div>
 	<div class="small-beautiful-input-form">
-		<input :type="type" ref="input"
+		<input :type="nativeType" ref="input"
 			:id="textId"
-			:style="{'text-align':textAlign}"
+			:style="{'text-align':align}"
 			:placeholder="placeholder"
 			@input="valueChange"
 			v-model="thisValue"
@@ -35,7 +35,7 @@ export default{
 			type:String,
 			default:"text",
 			validator: function (value) {
-				let valueType = ['text',"number","tel" ].indexOf(value) !== -1 ;
+				let valueType = ['text',"number","tel","id"].indexOf(value) !== -1 ;
 				if(valueType){
 					 return valueType;
 				}else{
@@ -43,18 +43,10 @@ export default{
 				}
 		      }
 		},
-		'textAlign':String,
+		'align':String,
 		value:"",
-		isType:{
-			validator: function (value) {
-				let valueType = ['tel',"email","id" ].indexOf(value) !== -1 || (typeof(value)==="function");
-				if(valueType){
-					 return valueType;
-				}else{
-					console.warn("The value of isType should be'tel''email''id' or type'function'.")
-				}
-		  }
-		},
+		regexp:RegExp,
+		getAge:Function,
 		isReturn:{
 			type:Object,
 			default:()=>({type:false,massage:"错误信息"}),
@@ -66,25 +58,43 @@ export default{
 		max:Number,
 		maxage:{
 			type:Number,
-			default:56,
+			default:60,
 		},
 		minage:{
 			type:Number,
 			default:18,
 		}
 	},
-	data:()=>({
-		thisValue:"",
-		verification:false,
-		iconWarnClear:false,
-		textId:"",
-	}),
+	data(){
+		return{
+			thisValue:"",
+			verification:false,
+			iconWarnClear:false,
+			textId:"",
+			nativeType:""
+		}
+	},
 	watch:{
 		value(nvl){
 			this.thisValue = nvl
-		}
+		},
 	},
 	created(){
+		const nvl = this.type;
+		switch (nvl){
+			case 'id':
+			this.nativeType = 'text'
+				break;
+			case 'tel':
+			this.nativeType = 'tel'
+				break;
+			case 'number':
+			this.nativeType = 'tel'
+				break;
+			default:
+			this.nativeType = 'text'
+				break;
+		}
 		this.textId = "pa-" + RandomCharacter();
 		this.thisValue = this.value;
 		this.verificationChange(this.value);
@@ -92,14 +102,14 @@ export default{
 	methods:{
 		valueChange(){
 			const val = event.target.value;
-			if(this.isType==='tel'){
+			if(this.type==='tel'){
 				const le = 11;
 				if(val.length>le){
 					this.thisValue = val.substring(0,le)
 					return
 				}
 			} 
-			if(this.isType==='id'){
+			if(this.type==='id'){
 				const le = 18;
 				if(val.length>le){
 					this.thisValue = val.substring(0,le)
@@ -124,7 +134,6 @@ export default{
 			this.verificationChange("");
 			this.clearIcon("")
 			this.$refs.input.focus()
-			console.log(111)
 		},
 		valueFocus(){
 			this.clearIcon(this.thisValue)
@@ -133,7 +142,7 @@ export default{
 			const thisDom = event.target;
 			setTimeout(()=>{
 				this.clearIcon('');
-			},10)
+			},100)
 		},
 		clearIcon(value){
 			if(value!==''){
@@ -143,10 +152,10 @@ export default{
 			}
 		},
 		verificationChange(value){
-			if(this.isType=='')return;
-			const isType = this.isType;
+			const isType = this.type;
 			if(isType==="tel"){
-				if(telReg.test(value)){
+				const telreg = this.regexp || telReg;
+				if(telreg.test(value)){
 					this.verification = false;
 					this.isReturn.type = true;
 					this.isReturn.message = "Y";
@@ -160,8 +169,17 @@ export default{
 				return;
 			}
 			if(isType==="id"){
-				if(idReg18.test(value)||idReg18.test(value)){
-					if(getAge(value)<this.minage || getAge(value)>this.maxage){
+				const fun = (value)=>{
+					const telreg = this.regexp;
+					if(telreg){
+						return telreg.test(value)
+					}else{
+						return (idReg18.test(value)||idReg18.test(value))
+					}
+				}
+				if(fun(value)){
+					const age = this.getAge||getAge;
+					if(age(value)<this.minage || age(value)>this.maxage){
 						if(this.warn){
 							this.verification = true;
 						}

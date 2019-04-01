@@ -1,15 +1,15 @@
 <template>
-<div class="pa-touch-slide">
+<div class="small-beautiful-slide">
 	<div
-		ref="pa-touch-slide-dom"
+		ref="small-beautiful-slide-dom"
 		 v-stouch="moveFn"
 		 :data-index="index"
 		 :data-moved="0" 
 		 :data-scalewidth="scalewidth" 
 		 :data-direction="direction"
-		 :class="{'pa-touch-slide-lr':direction==='horizontal','pa-touch-slide-tb':direction==='vertical'}"
+		 :class="{'small-beautiful-slide-lr':direction==='horizontal','small-beautiful-slide-tb':direction==='vertical'}"
 		 :data-lth="lth">
-		<slot name="pa-touch-slide-list">
+		<slot name="small-beautiful-slide-list">
 			<div></div>
 			<div></div>
 			<div></div>
@@ -17,7 +17,7 @@
 		</slot>
 	</div>
 	<div v-if="pagination">
-		<span v-for="(it,ind) in lth" :class="{'pa-touch-slide-active':ind==index}"></span>
+		<span v-for="(it,ind) in lth" :class="{'small-beautiful-slide-active':ind==index}"></span>
 	</div>
 </div>
 </template>
@@ -161,7 +161,7 @@ export default{
 				if(ex<0)scale = i+1;
 					el.dataset.index = scale;
 					this.i = scale;
-					//this.$emit("on-pa-touch-slide",scale);
+					//this.$emit("on-slide",scale);
 				if(direction==='lr'){
 					el.style.transform = "translate3d("+-(sw*scale)+"px,0,0)";
 				}
@@ -188,7 +188,7 @@ export default{
 				if(ex<0)scale = i+1;
 					el.dataset.index = scale;
 					this.i = scale;
-					//this.$emit("on-pa-touch-slide",scale);
+					//this.$emit("on-slide",scale);
 				if(direction==='lr'){
 					el.style.transform = "translate3d("+-(sw*scale)+"px,0,0)";
 				}
@@ -203,7 +203,7 @@ export default{
 	},
 	model:{
 		prop:"index",
-		event:"on-pa-touch-slide"
+		event:"on-slide"
 	},
 	props:{
 		index:{
@@ -237,11 +237,11 @@ export default{
 	},
 	watch:{
 		i(nvl){
-			this.$emit("on-pa-touch-slide",nvl);
+			this.$emit("on-slide",nvl);
 		}
 	},
 	mounted(){
-		const dom = (this.$refs['pa-touch-slide-dom']);
+		const dom = (this.$refs['small-beautiful-slide-dom']);
 		const children = dom.children;
 		const childrenFirst = children[0];
 		const length = children.length || 0;
@@ -256,40 +256,39 @@ export default{
 			this.lth = this.length || length;
 			const index = this.index;
 			if(index!==0){
-				this.$emit("on-pa-touch-slide",index);
+				//this.$emit("on-slide",index);
 			}
 	},
 }
 </script>
 
-<style lang="less">
-.pa-touch-slide{
+<style>
+.small-beautiful-slide{
 	overflow: hidden;
 	position: relative;
-	height: 500px;
-	img{
-		width: 100%;
-		display: block;
-	}
-	>div.pa-touch-slide-lr{
-		display: table;
-		white-space: nowrap;
-		width: 100%;
-		>div{
-			vertical-align: middle;
-			display: inline-block;
-			width: 100%;
-		}
-	}
-	>div.pa-touch-slide-tb{
-		>div{
-			vertical-align: middle;
-			height: 500px;
-			display: block;
-			overflow: hidden;
-		}
-	}
-	>div:nth-child(2){
+	height: 300px;
+}
+.small-beautiful-slide img{
+	width: 100%;
+	display: block;
+}
+.small-beautiful-slide >div.small-beautiful-slide-lr{
+	display: table;
+	white-space: nowrap;
+	width: 100%;
+}
+.small-beautiful-slide >div.small-beautiful-slide-lr>div{
+	vertical-align: middle;
+	display: inline-block;
+	width: 100%;
+}
+.small-beautiful-slide >div.small-beautiful-slide-tb>div{
+	vertical-align: middle;
+	height: 300px;
+	display: block;
+	overflow: hidden;
+}
+.small-beautiful-slide >div:nth-child(2){
 		position: absolute;
 		bottom: 0;
 		left: 0;
@@ -297,21 +296,20 @@ export default{
 		width: 100%;
 		height: 20px;
 		line-height: 20px;
-		>span{
+}
+.small-beautiful-slide >div:nth-child(2)>span{
 			display: inline-block;
-			width: 16px;
-			height: 16px;
+			width: 10px;
+			height: 10px;
 			border: 1px solid #fff;
 			border-radius: 50%;
-			margin: 0 5px;
+			margin: 0 3px;
 			background: rgba(0,0,0,0.3);
 			transition: width .3s;
 		}
-		>span.pa-touch-slide-active{
-			width:32px;
-			border-radius: 16px;
+.small-beautiful-slide >div:nth-child(2)>span.small-beautiful-slide-active{
+			width:24px;
+			border-radius: 10px;
 			transition: width .3s;
 		}
-	}
-}
 </style>

@@ -88,6 +88,7 @@ export default{
 </script>
 
 <style>
+	@import url("../static/css/reset.css");
 .PaToastFade-enter-active, .PaToastFade-leave-active {
   transition: opacity .5s;
 }

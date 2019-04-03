@@ -95,6 +95,7 @@ export default{
 </script>
 
 <style>
+@import url("../static/css/reset.css");
 .small-beautiful-select{
 	display: flex;
 	align-items: center;

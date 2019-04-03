@@ -6,7 +6,7 @@
 			<div class="btn"  @click="toast('warn')">warn</div>
 			<div class="btn"  @click="toast('cancel')">cancel</div>
 			<div class="btn"  @click="toast('text')">text</div>
-			<div class="btn"  @click="toastpublin">插件text调用</div>
+			<div class="btn"  @click="toastpublin('')">插件text调用</div>
 			<div class="btn"  @click="toastpublin('success')">插件success调用</div>
 		</div>
 	</div>
@@ -33,7 +33,7 @@ export default{
 		toastpublin(type){
 			if(type){
 				this.$beautiful.toast.show({
-					type:type,
+					type:"success",
 					text:"出来吧我的小伙"
 				})
 			}else{
@@ -51,9 +51,7 @@ export default{
     color: rgb(255, 255, 255);
 	position: relative;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-	margin-top: 10px;
+    margin: 10px auto;
     padding-left: 14px;
     padding-right: 14px;
     box-sizing: border-box;

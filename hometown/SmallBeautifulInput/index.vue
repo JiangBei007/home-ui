@@ -203,7 +203,8 @@ export default{
 }
 </script>
 
-<style lang="less">
+<style>
+@import url("../static/css/reset.css");
 .small-beautiful-input{
 	text-align: left;
 	display: flex;

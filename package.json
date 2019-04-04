@@ -1,6 +1,6 @@
 {
   "name": "small-beautiful-ui",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "vue-ui",
   "main": "hometown/index.js",
   "scripts": {
@@ -9,11 +9,9 @@
     "start": "npm run dev",
     "build": "webpack --inline --progress --config ./config/webpack.production.config.js"
   },
-  "author": "",
+  "author": "jiang-bei",
   "license": "ISC",
-  "dependencies": {
-   
-  },
+  "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^9.5.0",
     "babel-core": "^6.26.3",
@@ -34,13 +32,14 @@
     "postcss-loader": "^3.0.0",
     "postcss-pxtorem": "^4.0.1",
     "postcss-url": "^8.0.0",
+    "small-beautiful-ui": "^1.0.3",
     "url-loader": "^1.1.2",
     "vue": "^2.5.21",
-		"vue-router": "^3.0.2",
-		"vuex": "^3.0.1",
     "vue-loader": "^15.4.2",
+    "vue-router": "^3.0.2",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.5.21",
+    "vuex": "^3.0.1",
     "webpack": "^4.28.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.13"

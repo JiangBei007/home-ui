@@ -1,11 +1,33 @@
 <template>
 	<div class="small-beautiful-swiper-con">
-		<div>
-			<h3>轮播图</h3>
+		<div class="lr">
+			<h5>左右方向循环</h5>
+			<small-beautiful-swiper 
+			@on-slide="slide" 
+			v-model="index"
+			:loop="true"
+			:auto="false"
+			effect="slide"
+			direction="horizontal"
+			:pagination="true">
+				<template slot="small-beautiful-slide-list">
+					<div><img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=165624777,27724068&fm=26&gp=0.jpg" /> </div>
+					<div><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1421658367,1385970853&fm=26&gp=0.jpg" /> </div>
+					<div><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3080038640,3834434929&fm=26&gp=0.jpg" /> </div>
+					<div><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4052373286,979797005&fm=26&gp=0.jpg" /> </div>
+				</template>
+			</small-beautiful-swiper>
 		</div>
 		<div class="lr">
-			<h5>左右方向</h5>
-			<small-beautiful-swiper v-model="index" @on-slide="slideChange" direction="horizontal" :pagination="true">
+			<h5>左右方向不循环</h5>
+			<small-beautiful-swiper 
+			@on-slide="slide" 
+			v-model="index"
+			:loop="false"
+			:auto="false"
+			effect="slide"
+			direction="horizontal"
+			:pagination="true">
 				<template slot="small-beautiful-slide-list">
 					<div><img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=165624777,27724068&fm=26&gp=0.jpg" /> </div>
 					<div><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1421658367,1385970853&fm=26&gp=0.jpg" /> </div>
@@ -15,8 +37,33 @@
 			</small-beautiful-swiper>
 		</div>
 		<div class="tb">
-			<h5>上下方向</h5>
-			<small-beautiful-swiper v-model="indexvertical" @on-slide="slideChangeTb" direction="vertical" :pagination="true">
+			<h5>上下方向循环</h5>
+			<small-beautiful-swiper 
+			@on-slide="slide1" 
+			v-model="index1"
+			:loop="true"
+			:auto="false"
+			effect="slide"
+			direction="vertical"
+			:pagination="true">
+				<template slot="small-beautiful-slide-list">
+					<div><img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=165624777,27724068&fm=26&gp=0.jpg" /> </div>
+					<div><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1421658367,1385970853&fm=26&gp=0.jpg" /> </div>
+					<div><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3080038640,3834434929&fm=26&gp=0.jpg" /> </div>
+					<div><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4052373286,979797005&fm=26&gp=0.jpg" /> </div>
+				</template>
+			</small-beautiful-swiper>
+		</div>
+		<div class="tb">
+			<h5>上下方向不循环</h5>
+			<small-beautiful-swiper 
+			@on-slide="slide1" 
+			v-model="index1"
+			:loop="false"
+			:auto="false"
+			effect="slide"
+			direction="vertical"
+			:pagination="true">
 				<template slot="small-beautiful-slide-list">
 					<div><img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=165624777,27724068&fm=26&gp=0.jpg" /> </div>
 					<div><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1421658367,1385970853&fm=26&gp=0.jpg" /> </div>
@@ -27,42 +74,70 @@
 		</div>
 		<div class="lr small-text">
 			<h5>手动切换的文字型左右轮播</h5>
-			<small-beautiful-swiper v-model="index1" direction="horizontal" :pagination="true">
+			<small-beautiful-swiper v-model="index2" @on-slide="slide2"  direction="horizontal" :pagination="true">
 				<template slot="small-beautiful-slide-list">
-					<div v-for="i in 7">{{i}}</div>
+					<div v-for="(i,index) in 7">{{index}}</div>
 				</template>
 			</small-beautiful-swiper>
 			<div class="btn">
-				<span v-for="(i,index) in 7"  @click="slide(index)">切换到第{{index}}个</span>
+				<span v-for="(i,index) in 7"  @click="slideTo(index)">切换到第{{index}}个</span>
 			</div>
 		</div>
+		<small-beautiful-swiper 
+		@on-slide="slide3" 
+		v-model="index3"
+		:loop="true"
+		:auto="false"
+		effect="fade"
+		direction="horizontal"
+		:pagination="true">
+			<template slot="small-beautiful-slide-list">
+				<div><img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=165624777,27724068&fm=26&gp=0.jpg" /> </div>
+				<div><img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1421658367,1385970853&fm=26&gp=0.jpg" /> </div>
+				<div><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3080038640,3834434929&fm=26&gp=0.jpg" /> </div>
+				<div><img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4052373286,979797005&fm=26&gp=0.jpg" /> </div>
+			</template>
+		</small-beautiful-swiper>
 	</div>
 </template>
 
 <script>
 import	{SmallBeautifulSwiper} from "root-directory"
 export default{
-	name:"swiper",
+	name:"s-swiper",
 	components:{
-		SmallBeautifulSwiper
+		SmallBeautifulSwiper	
+	},
+	mounted(){
+		
 	},
 	data(){
 		return{
-			index:2,
-			indexvertical:0,
+			index:0,
 			index1:0,
+			index2:5,
+			index3:1,
 		}
 	},
+	watch:{
+		
+	},
 	methods:{
-		slideChange(index){
+		slide(index){
 			console.log(index)
 		},
-		slideChangeTb(index){
-			//console.log(index)
+		slide1(index){
+			console.log(index)
 		},
-		slide(index){
-			this.index1 = index;
-		}
+		slide2(index){
+			console.log(index)
+		},
+		slideTo(index){
+			this.index2 = index;
+		},
+		slide3(index){
+			console.log(index)
+		},
 	}
 }
 </script>

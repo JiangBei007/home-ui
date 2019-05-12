@@ -12,6 +12,7 @@ import input  from './../components/input.vue'
 import toast  from './../components/toast.vue'
 import select  from './../components/select.vue'
 import loading  from './../components/loading.vue'
+import sswiper  from './../components/s-swiper.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -39,6 +40,10 @@ export default new Router({
 		{
 			path:"/loading",
 			component:loading
+		},
+		{
+			path:"/sswiper",
+			component:sswiper
 		}
   ]
 })

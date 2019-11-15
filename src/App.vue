@@ -6,7 +6,8 @@
   </div>
 </template>
 <script>
-	
+import na from './until/index'
+console.log(na)
 export default{
 	name:"app",
 	watch:{
